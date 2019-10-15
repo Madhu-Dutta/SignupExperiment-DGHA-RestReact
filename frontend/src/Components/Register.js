@@ -6,43 +6,69 @@ export default class Register extends Component {
     constructor() {
         super();
         this.state = {
-            firstname: '',
-            lastName: '',
-            email: '',
-            password: '',
-            username: ''
+            FirstName: '',
+            LastName: '',
+            Email: '',
+            Password: '',
+            UserName: '',
+            //Validation checks
+            formErrors: { Email: '', Password: '' },
+            emailValid: false,
+            passwordValid: false,
+            formValid: false
         }
     }
 
-    onchange = (e) => {
-        //Get value from target input elements(name) and update the state with the input value
+    Email = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            Email: e.target.value
+        })
+    }
+    Password = (e) => {
+        this.setState({
+            Password: e.target.value
+        })
+    }
+    UserName = (e) => {
+        this.setState({
+            UserName: e.target.value
+        })
+    }
+    FirstName = (e) => {
+        this.setState({
+            FirstName: e.target.value
+        })
+    }
+    LastName = (e) => {
+        this.setState({
+            LastName: e.target.value
         })
     }
 
     register = (e) => {
 
         e.preventDefault();
-        fetch('http://localhost:59550/api/customers/', {
+        fetch('http://localhost:52575/Api/login/InsertMember', {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                firstname: this.state.firstname,
-                lastName: this.state.lastName,
-                username: this.state.username,
-                password: this.state.password,
-                email: this.state.email,
+                FirstName: this.state.FirstName,
+                LastName: this.state.LastName,
+                UserName: this.state.UserName,
+                Password: this.state.Password,
+                Email: this.state.Email,
             })
         }).then((Response) => Response.json())
             .then((Result) => {
-                if (Result.Status === 'Success')
+                if (Result.Status === 'Success') {
                     this.props.history.push("/");
-                else
-                    alert('Sorrrrrry !!!! Un-authenticated User !!!!!')
+                }
+                else {
+                    alert('Sorrrrrry !!!! Un-authenticated User !!!!!');
+                }
             })
     }
 
@@ -56,25 +82,25 @@ export default class Register extends Component {
                 </div>
                 <div className="msg-block"></div>
 
-                <Form name="form">
+                <Form name="form" onSubmit={this.register}>
                     <FormGroup>
                         <Row>
                             <Col xs="6">
-                                <Input type="text" className="form-control" onChange={this.onchange} name="firstname" placeholder="FirstName" required />
+                                <Input type="text" className="form-control" onChange={this.FirstName} placeholder="FirstName" required />
                             </Col>
                             <Col xs="6">
-                                <Input type="text" className="form-control" onChange={this.onchange} name="lastname" placeholder="LastName" required />
+                                <Input type="text" className="form-control" onChange={this.LastName} placeholder="LastName" required />
                             </Col>
                         </Row>
                     </FormGroup>
                     <FormGroup>
-                        <Input type="text" className="form-control" onChange={this.onchange} name="username" placeholder="Username" required />
+                        <Input type="text" className="form-control" onChange={this.UserName} placeholder="Username" required />
                     </FormGroup>
                     <FormGroup>
-                        <Input type="email" className="form-control" onChange={this.onchange} name="email" placeholder="Email" required />
+                        <Input type="text" className="form-control" onChange={this.Email} placeholder="Email" required />
                     </FormGroup>
                     <FormGroup>
-                        <Input type="password" className="form-control" onChange={this.onchange} name="password" placeholder="Password" required />
+                        <Input type="password" className="form-control" onChange={this.Password} placeholder="Password" required />
                     </FormGroup>
 
                     <FormGroup>
