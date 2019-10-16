@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col, Form, FormGroup, Input } from 'reactstrap';
+import { Container, Row, Col, Form, FormGroup, Input } from 'reactstrap';
 
 export default class Register extends Component {
     constructor() {
@@ -12,10 +12,11 @@ export default class Register extends Component {
             Password: '',
             UserName: '',
             //Validation checks
-            formErrors: { Email: '', Password: '' },
-            emailValid: false,
-            passwordValid: false,
-            formValid: false
+            errors: {
+                fullName: '',
+                email: '',
+                password: '',
+            }
         }
     }
 
@@ -75,44 +76,46 @@ export default class Register extends Component {
 
     render() {
         return (
-            <div id="container">
-                <div className="header">
-                    <h2 className="text-center">Register</h2>
-                    <hr />
-                </div>
-                <div className="msg-block"></div>
+            <Container>
+                <div className="wrapper">
+                    <div className="header">
+                        <h2 className="text-center">Register</h2>
+                        <hr />
+                    </div>
+                    <div className="msg-block"></div>
 
-                <Form name="form" onSubmit={this.register}>
-                    <FormGroup>
-                        <Row>
-                            <Col xs="6">
-                                <Input type="text" className="form-control" onChange={this.FirstName} placeholder="FirstName" required />
-                            </Col>
-                            <Col xs="6">
-                                <Input type="text" className="form-control" onChange={this.LastName} placeholder="LastName" required />
-                            </Col>
-                        </Row>
-                    </FormGroup>
-                    <FormGroup>
-                        <Input type="text" className="form-control" onChange={this.UserName} placeholder="Username" required />
-                    </FormGroup>
-                    <FormGroup>
-                        <Input type="text" className="form-control" onChange={this.Email} placeholder="Email" required />
-                    </FormGroup>
-                    <FormGroup>
-                        <Input type="password" className="form-control" onChange={this.Password} placeholder="Password" required />
-                    </FormGroup>
+                    <Form name="form" onSubmit={this.register}>
+                        <FormGroup>
+                            <Row>
+                                <Col xs="6">
+                                    <Input type="text" className="form-control" onChange={this.FirstName} placeholder="FirstName" required />
+                                </Col>
+                                <Col xs="6">
+                                    <Input type="text" className="form-control" onChange={this.LastName} placeholder="LastName" required />
+                                </Col>
+                            </Row>
+                        </FormGroup>
+                        <FormGroup>
+                            <Input type="text" className="form-control" onChange={this.UserName} placeholder="Username" required />
+                        </FormGroup>
+                        <FormGroup>
+                            <Input type="text" className="form-control" value={this.state.Email} onChange={this.Email} placeholder="Email" required />
+                        </FormGroup>
+                        <FormGroup>
+                            <Input type="password" className="form-control" value={this.state.Password} onChange={this.Password} placeholder="Password" required />
+                        </FormGroup>
 
-                    <FormGroup>
-                        <Input type="submit" onClick={this.register} value="Register" id="button" />
-                    </FormGroup>
-                    <hr />
-                    <FormGroup className="text-center">
-                        <div>Already have an account?</div>
-                        <Link to="/Login" alt="Login Link" aria-label="re-direct to log-in page" className="btn btn-link" style={{ color: "black" }}>Log In</Link>
-                    </ FormGroup>
-                </Form>
-            </div >
+                        <FormGroup>
+                            <Input type="submit" onClick={this.register} value="Register" id="button" />
+                        </FormGroup>
+                        <hr />
+                        <FormGroup className="text-center">
+                            <div>Already have an account?</div>
+                            <Link to="/Login" alt="Login Link" aria-label="re-direct to log-in page" className="btn btn-link" style={{ color: "black" }}>Log In</Link>
+                        </ FormGroup>
+                    </Form>
+                </div >
+            </Container>
 
         )
     }

@@ -10,12 +10,11 @@ export default class Review extends Component {
     }
 
     logout = () => {
-        // sessionStorage.setItem('userData', ' ');
-        // sessionStorage.clear();
         console.log('logout');
         this.setState({
             redirect: true
         })
+
     }
     render() {
         if (this.state.redirect === true) {
